@@ -1,103 +1,141 @@
-import Image from "next/image";
+"use client";
+
+import {
+  Box,
+  HStack,
+  VStack,
+  Select,
+  createListCollection,
+  Portal,
+  Input,
+  InputGroup,
+  Button,
+  Text,
+  Grid,
+} from "@chakra-ui/react";
+import { FaSearch } from "react-icons/fa";
+import { IoCloseSharp } from "react-icons/io5";
+import { FaCode, FaChartBar } from "react-icons/fa6";
+import { TbClockHour4Filled } from "react-icons/tb";
+import { PresentationDashboard } from "./components/PresentationDashboard.tsx";
+
+const frameworks = createListCollection({
+  items: [
+    { label: "React.js", value: "react" },
+    { label: "Vue.js", value: "vue" },
+    { label: "Angular", value: "angular" },
+    { label: "Svelte", value: "svelte" },
+  ],
+});
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <VStack gap="32px" maxW="90vw" w="90vw" mx="auto">
+      <Box
+        w="100%"
+        bg="#ffffff"
+        boxShadow="lg"
+        borderRadius="xl"
+        px="8px"
+        py="12px"
+        mt="20px"
+      >
+        {/* Filters */}
+        <VStack p="12px">
+          {/* Search Input */}
+          <Grid
+            templateColumns="1fr auto auto"
+            w="100%"
+            alignItems="center"
+            gap="16px"
+            my="8px"
+          >
+            <InputGroup startElement={<FaSearch size="16px" />} w="100%">
+              <Input
+                placeholder="Buscar presentaciones, módulos o materias..."
+                color="#9CA3AF"
+                h="48px"
+                fontSize="md"
+              />
+            </InputGroup>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            {/* Subject Filter */}
+            <Select.Root
+              collection={frameworks}
+              size="md"
+              w="200px"
+              borderRadius="md"
+              borderWidth="1px"
+              borderColor="#D1D5DB"
+              h="48px"
+            >
+              <Select.HiddenSelect />
+              <Select.Control color=" #000000" h="48px">
+                <Select.Trigger h="48px">
+                  <Select.ValueText
+                    placeholder="Todas las materias"
+                    color="#000000"
+                    fontSize="md"
+                  />
+                </Select.Trigger>
+                <Select.IndicatorGroup>
+                  <Select.Indicator />
+                </Select.IndicatorGroup>
+              </Select.Control>
+              <Portal>
+                <Select.Positioner>
+                  <Select.Content>
+                    {frameworks.items.map((framework) => (
+                      <Select.Item
+                        item={framework}
+                        key={framework.value}
+                        color="#000000"
+                      >
+                        {framework.label}
+                        <Select.ItemIndicator />
+                      </Select.Item>
+                    ))}
+                  </Select.Content>
+                </Select.Positioner>
+              </Portal>
+            </Select.Root>
+
+            {/* Clear Button */}
+            <Button bg="#d6d7dbff" h="48px">
+              <IoCloseSharp color="#000000" />
+              <Text color="#000000" fontSize="md">
+                Limpiar
+              </Text>
+            </Button>
+          </Grid>
+
+          {/* Category Buttons */}
+          <HStack
+            alignItems="flex-start"
+            justifyContent="flex-start"
+            w="100%"
+            gap="0px"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <Button variant="ghost">
+              <FaCode color="#000000" />
+              <Text color="#000000"> Python </Text>
+            </Button>
+
+            <Button variant="ghost">
+              <FaChartBar size="12px" color="#000000" />
+              <Text color="#000000"> Power BI </Text>
+            </Button>
+
+            <Button variant="ghost">
+              <TbClockHour4Filled size="1px" color="#000000" />
+              <Text color="#000000"> Recientes </Text>
+            </Button>
+          </HStack>
+        </VStack>
+      </Box>
+
+      {/* Content Area */}
+      <PresentationDashboard />
+    </VStack>
   );
 }

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentaciones Académicas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg border-b-4 border-blue-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <i class="fas fa-presentation-screen text-3xl text-blue-600 mr-3"></i>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Presentaciones Académicas</h1>
+                        <p class="text-sm text-gray-600 mt-1">Explora el contenido educativo organizado por materias</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2 text-sm text-gray-600">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub Repository</span>
+                    </div>
+                    <button id="adminBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200">
+                        <i class="fas fa-cog mr-2"></i>Administrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Search and Filter Bar -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex-1">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar presentaciones, módulos o materias..." 
+                               class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <select id="materiaFilter" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Todas las materias</option>
+                    </select>
+                    <select id="tipoFilter" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Todos los tipos</option>
+                        <option value="Quarto">Quarto</option>
+                        <option value="Reveal.js">Reveal.js</option>
+                        <option value="Jupyter">Jupyter Notebook</option>
+                    </select>
+                    <button id="clearFilters" class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors duration-200">
+                        <i class="fas fa-times mr-2"></i>Limpiar
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Quick Filters -->
+            <div class="flex flex-wrap gap-2 mt-4">
+                <button class="filter-tag" data-filter="hasCode">
+                    <i class="fas fa-code mr-1"></i>Con Python
+                </button>
+                <button class="filter-tag" data-filter="hasPowerBI">
+                    <i class="fas fa-chart-bar mr-1"></i>Con Power BI
+                </button>
+                <button class="filter-tag" data-filter="recent">
+                    <i class="fas fa-clock mr-1"></i>Recientes
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-blue-100 text-sm">Total Materias</p>
+                        <p class="text-3xl font-bold" id="totalMaterias">0</p>
+                    </div>
+                    <i class="fas fa-book text-3xl text-blue-200"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-green-100 text-sm">Total Módulos</p>
+                        <p class="text-3xl font-bold" id="totalModulos">0</p>
+                    </div>
+                    <i class="fas fa-folder text-3xl text-green-200"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-purple-100 text-sm">Total Presentaciones</p>
+                        <p class="text-3xl font-bold" id="totalPresentaciones">0</p>
+                    </div>
+                    <i class="fas fa-presentation-screen text-3xl text-purple-200"></i>
+                </div>
+            </div>
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-orange-100 text-sm">Con Código</p>
+                        <p class="text-3xl font-bold" id="totalConCodigo">0</p>
+                    </div>
+                    <i class="fas fa-code text-3xl text-orange-200"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Sidebar with Materias -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-6 sticky top-8">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-list mr-2 text-blue-600"></i>Materias
+                    </h3>
+                    <div id="materiasList" class="space-y-2">
+                        <!-- Materias navigation will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <div id="contentArea">
+                    <!-- Content will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Presentation Modal -->
+    <div id="presentationModal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-hidden">
+            <div class="flex justify-between items-center p-6 border-b border-gray-200">
+                <div>
+                    <h3 id="modalTitle" class="text-xl font-bold text-gray-900"></h3>
+                    <p id="modalSubtitle" class="text-sm text-gray-600 mt-1"></p>
+                </div>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600 p-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div id="modalContent" class="space-y-4">
+                    <!-- Modal content will be populated here -->
+                </div>
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button id="viewOnGithub" class="bg-gray-800 hover:bg-gray-900 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200">
+                        <i class="fab fa-github mr-2"></i>Ver en GitHub
+                    </button>
+                    <button id="openPresentation" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200">
+                        <i class="fas fa-external-link-alt mr-2"></i>Abrir Presentación
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .filter-tag {
+            @apply px-3 py-1 bg-gray-100 hover:bg-blue-100 text-gray-700 hover:text-blue-700 rounded-full text-sm transition-colors duration-200 border border-transparent hover:border-blue-200;
+        }
+        
+        .filter-tag.active {
+            @apply bg-blue-100 text-blue-700 border-blue-200;
+        }
+        
+        .materia-item {
+            @apply p-3 rounded-lg cursor-pointer transition-all duration-200 border border-transparent;
+        }
+        
+        .materia-item:hover {
+            @apply bg-blue-50 border-blue-200;
+        }
+        
+        .materia-item.active {
+            @apply bg-blue-100 border-blue-300 text-blue-800;
+        }
+        
+        .presentation-card {
+            @apply bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105;
+        }
+        
+        .module-section {
+            @apply bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden mb-6;
+        }
+    </style>
+
+    <script>
+        // Sample data structure (same as admin page)
+        let data = {
+            materias: [
+                { id: 1, nombre: "Matemáticas Avanzadas", codigo: "MAT-2024", descripcion: "Curso de matemáticas para ingeniería", githubPath: "/matematicas-avanzadas" },
+                { id: 2, nombre: "Programación Web", codigo: "WEB-2024", descripcion: "Desarrollo de aplicaciones web modernas", githubPath: "/programacion-web" },
+                { id: 3, nombre: "Análisis de Datos", codigo: "DATA-2024", descripcion: "Fundamentos de ciencia de datos", githubPath: "/analisis-datos" },
+                { id: 4, nombre: "Machine Learning", codigo: "ML-2024", descripcion: "Aprendizaje automático aplicado", githubPath: "/machine-learning" }
+            ],
+            modulos: [
+                { id: 1, nombre: "Cálculo Diferencial", materiaId: 1, orden: 1, descripcion: "Introducción al cálculo diferencial" },
+                { id: 2, nombre: "Cálculo Integral", materiaId: 1, orden: 2, descripcion: "Fundamentos del cálculo integral" },
+                { id: 3, nombre: "HTML y CSS", materiaId: 2, orden: 1, descripcion: "Fundamentos de desarrollo web" },
+                { id: 4, nombre: "JavaScript Avanzado", materiaId: 2, orden: 2, descripcion: "Programación avanzada en JavaScript" },
+                { id: 5, nombre: "Python para Datos", materiaId: 3, orden: 1, descripcion: "Introducción a Python para análisis" },
+                { id: 6, nombre: "Visualización", materiaId: 3, orden: 2, descripcion: "Técnicas de visualización de datos" },
+                { id: 7, nombre: "Algoritmos Supervisados", materiaId: 4, orden: 1, descripcion: "Aprendizaje supervisado" },
+                { id: 8, nombre: "Redes Neuronales", materiaId: 4, orden: 2, descripcion: "Deep Learning básico" }
+            ],
+            presentaciones: [
+                { id: 1, nombre: "Límites y Continuidad", moduloId: 1, githubUrl: "https://github.com/user/repo/limits.html", tipo: "Quarto", hasCode: true, hasPowerBI: false },
+                { id: 2, nombre: "Derivadas", moduloId: 1, githubUrl: "https://github.com/user/repo/derivatives.html", tipo: "Quarto", hasCode: true, hasPowerBI: true },
+                { id: 3, nombre: "Aplicaciones de Derivadas", moduloId: 1, githubUrl: "https://github.com/user/repo/derivatives-apps.html", tipo: "Reveal.js", hasCode: false, hasPowerBI: false },
+                { id: 4, nombre: "Integrales Definidas", moduloId: 2, githubUrl: "https://github.com/user/repo/definite-integrals.html", tipo: "Quarto", hasCode: true, hasPowerBI: false },
+                { id: 5, nombre: "Introducción a HTML", moduloId: 3, githubUrl: "https://github.com/user/repo/html-intro.html", tipo: "Reveal.js", hasCode: false, hasPowerBI: false },
+                { id: 6, nombre: "CSS Grid y Flexbox", moduloId: 3, githubUrl: "https://github.com/user/repo/css-layout.html", tipo: "Jupyter", hasCode: true, hasPowerBI: false },
+                { id: 7, nombre: "DOM Manipulation", moduloId: 4, githubUrl: "https://github.com/user/repo/dom-manipulation.html", tipo: "Quarto", hasCode: true, hasPowerBI: false },
+                { id: 8, nombre: "Pandas Básico", moduloId: 5, githubUrl: "https://github.com/user/repo/pandas-basic.html", tipo: "Jupyter", hasCode: true, hasPowerBI: true },
+                { id: 9, nombre: "Matplotlib y Seaborn", moduloId: 6, githubUrl: "https://github.com/user/repo/matplotlib.html", tipo: "Jupyter", hasCode: true, hasPowerBI: false },
+                { id: 10, nombre: "Power BI Dashboard", moduloId: 6, githubUrl: "https://github.com/user/repo/powerbi-dashboard.html", tipo: "Quarto", hasCode: false, hasPowerBI: true },
+                { id: 11, nombre: "Regresión Linear", moduloId: 7, githubUrl: "https://github.com/user/repo/linear-regression.html", tipo: "Jupyter", hasCode: true, hasPowerBI: true },
+                { id: 12, nombre: "Redes Neuronales con TensorFlow", moduloId: 8, githubUrl: "https://github.com/user/repo/tensorflow-nn.html", tipo: "Jupyter", hasCode: true, hasPowerBI: false }
+            ]
+        };
+
+        let currentFilters = {
+            search: '',
+            materia: '',
+            tipo: '',
+            hasCode: false,
+            hasPowerBI: false,
+            recent: false
+        };
+
+        let selectedMateria = null;
+
+        // Initialize the page
+        function init() {
+            updateStatistics();
+            populateFilters();
+            renderMateriasList();
+            renderContent();
+            setupEventListeners();
+        }
+
+        function updateStatistics() {
+            document.getElementById('totalMaterias').textContent = data.materias.length;
+            document.getElementById('totalModulos').textContent = data.modulos.length;
+            document.getElementById('totalPresentaciones').textContent = data.presentaciones.length;
+            document.getElementById('totalConCodigo').textContent = data.presentaciones.filter(p => p.hasCode).length;
+        }
+
+        function populateFilters() {
+            const materiaFilter = document.getElementById('materiaFilter');
+            materiaFilter.innerHTML = '<option value="">Todas las materias</option>';
+            data.materias.forEach(materia => {
+                materiaFilter.innerHTML += `<option value="${materia.id}">${materia.nombre}</option>`;
+            });
+        }
+
+        function renderMateriasList() {
+            const materiasList = document.getElementById('materiasList');
+            materiasList.innerHTML = data.materias.map(materia => {
+                const modulosCount = data.modulos.filter(m => m.materiaId === materia.id).length;
+                const presentacionesCount = data.modulos
+                    .filter(m => m.materiaId === materia.id)
+                    .reduce((total, modulo) => total + data.presentaciones.filter(p => p.moduloId === modulo.id).length, 0);
+                
+                return `
+                    <div class="materia-item ${selectedMateria === materia.id ? 'active' : ''}" 
+                         onclick="selectMateria(${materia.id})">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h4 class="font-medium text-gray-900">${materia.nombre}</h4>
+                                <p class="text-xs text-gray-500 mt-1">${materia.codigo}</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-xs text-gray-500">${modulosCount} módulos</div>
+                                <div class="text-xs text-gray-500">${presentacionesCount} presentaciones</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectMateria(materiaId) {
+            selectedMateria = selectedMateria === materiaId ? null : materiaId;
+            renderMateriasList();
+            renderContent();
+        }
+
+        function renderContent() {
+            const contentArea = document.getElementById('contentArea');
+            
+            if (selectedMateria) {
+                renderMateriaContent(selectedMateria);
+            } else {
+                renderAllContent();
+            }
+        }
+
+        function renderMateriaContent(materiaId) {
+            const materia = data.materias.find(m => m.id === materiaId);
+            const modulos = data.modulos.filter(m => m.materiaId === materiaId).sort((a, b) => a.orden - b.orden);
+            
+            const contentArea = document.getElementById('contentArea');
+            contentArea.innerHTML = `
+                <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-8 text-white mb-8">
+                    <h2 class="text-3xl font-bold mb-2">${materia.nombre}</h2>
+                    <p class="text-blue-100 text-lg mb-2">${materia.codigo}</p>
+                    <p class="text-blue-50">${materia.descripcion}</p>
+                    <div class="flex items-center mt-4 text-blue-100">
+                        <i class="fab fa-github mr-2"></i>
+                        <span class="text-sm">${materia.githubPath}</span>
+                    </div>
+                </div>
+                
+                <div id="modulosContent">
+                    ${modulos.map(modulo => renderModuloSection(modulo)).join('')}
+                </div>
+            `;
+        }
+
+        function renderModuloSection(modulo) {
+            const presentaciones = data.presentaciones.filter(p => p.moduloId === modulo.id);
+            
+            return `
+                <div class="module-section">
+                    <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 text-white">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-green-400 bg-opacity-50 text-white text-sm px-3 py-1 rounded-full mr-3">
+                                        Módulo ${modulo.orden}
+                                    </span>
+                                    <h3 class="text-xl font-bold">${modulo.nombre}</h3>
+                                </div>
+                                <p class="text-green-100">${modulo.descripcion}</p>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-green-100 text-sm">${presentaciones.length} presentaciones</div>
+                                ${presentaciones.some(p => p.hasCode) ? '<div class="text-green-100 text-xs mt-1"><i class="fas fa-code mr-1"></i>Python</div>' : ''}
+                                ${presentaciones.some(p => p.hasPowerBI) ? '<div class="text-green-100 text-xs mt-1"><i class="fas fa-chart-bar mr-1"></i>Power BI</div>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${presentaciones.map(presentacion => renderPresentationCard(presentacion)).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAllContent() {
+            const filteredPresentaciones = getFilteredPresentaciones();
+            const contentArea = document.getElementById('contentArea');
+            
+            if (filteredPresentaciones.length === 0) {
+                contentArea.innerHTML = `
+                    <div class="text-center py-16">
+                        <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">No se encontraron presentaciones</h3>
+                        <p class="text-gray-500">Intenta ajustar los filtros de búsqueda</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            contentArea.innerHTML = `
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                        ${currentFilters.search || Object.values(currentFilters).some(v => v) ? 'Resultados de búsqueda' : 'Todas las presentaciones'}
+                    </h2>
+                    <p class="text-gray-600">${filteredPresentaciones.length} presentaciones encontradas</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${filteredPresentaciones.map(presentacion => renderPresentationCard(presentacion)).join('')}
+                </div>
+            `;
+        }
+
+        function renderPresentationCard(presentacion) {
+            const modulo = data.modulos.find(m => m.id === presentacion.moduloId);
+            const materia = modulo ? data.materias.find(m => m.id === modulo.materiaId) : null;
+            
+            return `
+                <div class="presentation-card" onclick="openPresentationModal(${presentacion.id})">
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">${presentacion.nombre}</h3>
+                                <p class="text-sm text-purple-600 font-medium">${modulo ? modulo.nombre : 'Sin módulo'}</p>
+                                <p class="text-xs text-gray-500">${materia ? materia.nombre : ''}</p>
+                            </div>
+                            <div class="flex space-x-1">
+                                <button onclick="event.stopPropagation(); viewPresentation('${presentacion.githubUrl}')" 
+                                        class="text-blue-600 hover:text-blue-800 p-2" title="Ver presentación">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">${presentacion.tipo}</span>
+                            ${presentacion.hasCode ? '<span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full"><i class="fas fa-code mr-1"></i>Python</span>' : ''}
+                            ${presentacion.hasPowerBI ? '<span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full"><i class="fas fa-chart-bar mr-1"></i>Power BI</span>' : ''}
+                        </div>
+                        
+                        <div class="text-xs text-gray-500 truncate">
+                            <i class="fab fa-github mr-1"></i>${presentacion.githubUrl}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getFilteredPresentaciones() {
+            return data.presentaciones.filter(presentacion => {
+                const modulo = data.modulos.find(m => m.id === presentacion.moduloId);
+                const materia = modulo ? data.materias.find(m => m.id === modulo.materiaId) : null;
+                
+                // Search filter
+                if (currentFilters.search) {
+                    const searchTerm = currentFilters.search.toLowerCase();
+                    const matchesSearch = 
+                        presentacion.nombre.toLowerCase().includes(searchTerm) ||
+                        (modulo && modulo.nombre.toLowerCase().includes(searchTerm)) ||
+                        (materia && materia.nombre.toLowerCase().includes(searchTerm));
+                    if (!matchesSearch) return false;
+                }
+                
+                // Materia filter
+                if (currentFilters.materia && materia && materia.id != currentFilters.materia) {
+                    return false;
+                }
+                
+                // Tipo filter
+                if (currentFilters.tipo && presentacion.tipo !== currentFilters.tipo) {
+                    return false;
+                }
+                
+                // Code filter
+                if (currentFilters.hasCode && !presentacion.hasCode) {
+                    return false;
+                }
+                
+                // Power BI filter
+                if (currentFilters.hasPowerBI && !presentacion.hasPowerBI) {
+                    return false;
+                }
+                
+                return true;
+            });
+        }
+
+        function setupEventListeners() {
+            // Search input
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                currentFilters.search = e.target.value;
+                selectedMateria = null;
+                renderMateriasList();
+                renderContent();
+            });
+            
+            // Filter selects
+            document.getElementById('materiaFilter').addEventListener('change', (e) => {
+                currentFilters.materia = e.target.value;
+                selectedMateria = e.target.value ? parseInt(e.target.value) : null;
+                renderMateriasList();
+                renderContent();
+            });
+            
+            document.getElementById('tipoFilter').addEventListener('change', (e) => {
+                currentFilters.tipo = e.target.value;
+                renderContent();
+            });
+            
+            // Clear filters
+            document.getElementById('clearFilters').addEventListener('click', () => {
+                currentFilters = {
+                    search: '',
+                    materia: '',
+                    tipo: '',
+                    hasCode: false,
+                    hasPowerBI: false,
+                    recent: false
+                };
+                selectedMateria = null;
+                document.getElementById('searchInput').value = '';
+                document.getElementById('materiaFilter').value = '';
+                document.getElementById('tipoFilter').value = '';
+                document.querySelectorAll('.filter-tag').forEach(tag => tag.classList.remove('active'));
+                renderMateriasList();
+                renderContent();
+            });
+            
+            // Filter tags
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                tag.addEventListener('click', (e) => {
+                    const filter = e.target.dataset.filter;
+                    currentFilters[filter] = !currentFilters[filter];
+                    e.target.classList.toggle('active');
+                    renderContent();
+                });
+            });
+            
+            // Modal close
+            document.getElementById('closeModal').addEventListener('click', closePresentationModal);
+            document.getElementById('presentationModal').addEventListener('click', (e) => {
+                if (e.target.id === 'presentationModal') {
+                    closePresentationModal();
+                }
+            });
+            
+            // Admin button
+            document.getElementById('adminBtn').addEventListener('click', () => {
+                alert('Redirigir a página de administración');
+            });
+        }
+
+        function openPresentationModal(presentacionId) {
+            const presentacion = data.presentaciones.find(p => p.id === presentacionId);
+            const modulo = data.modulos.find(m => m.id === presentacion.moduloId);
+            const materia = modulo ? data.materias.find(m => m.id === modulo.materiaId) : null;
+            
+            document.getElementById('modalTitle').textContent = presentacion.nombre;
+            document.getElementById('modalSubtitle').textContent = `${modulo ? modulo.nombre : 'Sin módulo'} • ${materia ? materia.nombre : ''}`;
+            
+            document.getElementById('modalContent').innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-3">Información de la Presentación</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-presentation-screen text-purple-600 mr-3"></i>
+                                <span class="text-sm text-gray-700">Tipo: ${presentacion.tipo}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-folder text-green-600 mr-3"></i>
+                                <span class="text-sm text-gray-700">Módulo: ${modulo ? modulo.nombre : 'Sin módulo'}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-book text-blue-600 mr-3"></i>
+                                <span class="text-sm text-gray-700">Materia: ${materia ? materia.nombre : 'Sin materia'}</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fab fa-github text-gray-600 mr-3"></i>
+                                <span class="text-sm text-gray-700 truncate">${presentacion.githubUrl}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-3">Características</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-code ${presentacion.hasCode ? 'text-yellow-600' : 'text-gray-300'} mr-3"></i>
+                                <span class="text-sm ${presentacion.hasCode ? 'text-gray-700' : 'text-gray-400'}">
+                                    ${presentacion.hasCode ? 'Incluye código Python' : 'Sin código Python'}
+                                </span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-bar ${presentacion.hasPowerBI ? 'text-orange-600' : 'text-gray-300'} mr-3"></i>
+                                <span class="text-sm ${presentacion.hasPowerBI ? 'text-gray-700' : 'text-gray-400'}">
+                                    ${presentacion.hasPowerBI ? 'Incluye Power BI' : 'Sin Power BI'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                ${modulo ? `
+                    <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold text-gray-900 mb-2">Descripción del Módulo</h4>
+                        <p class="text-sm text-gray-700">${modulo.descripcion}</p>
+                    </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('viewOnGithub').onclick = () => window.open(presentacion.githubUrl, '_blank');
+            document.getElementById('openPresentation').onclick = () => {
+                window.open(presentacion.githubUrl, '_blank');
+                closePresentationModal();
+            };
+            
+            document.getElementById('presentationModal').classList.remove('hidden');
+            document.getElementById('presentationModal').classList.add('flex');
+        }
+
+        function closePresentationModal() {
+            document.getElementById('presentationModal').classList.add('hidden');
+            document.getElementById('presentationModal').classList.remove('flex');
+        }
+
+        function viewPresentation(url) {
+            window.open(url, '_blank');
+        }
+
+        // Initialize the page
+        init();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97c3401242e98a88',t:'MTc1NzM4NDg4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
