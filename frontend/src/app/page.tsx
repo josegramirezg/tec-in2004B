@@ -1,34 +1,18 @@
 "use client";
 
-import {
-  Box,
-  HStack,
-  VStack,
-  Select,
-  createListCollection,
-  Portal,
-  Input,
-  InputGroup,
-  Button,
-  Text,
-  Grid,
-} from "@chakra-ui/react";
+import { Box, HStack, VStack, Select, Portal, Input, InputGroup, Button, Text, Grid } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { FaCode, FaChartBar } from "react-icons/fa6";
 import { TbClockHour4Filled } from "react-icons/tb";
 import { PresentationDashboard } from "./components/PresentationDashboard.tsx";
-
-const frameworks = createListCollection({
-  items: [
-    { label: "React.js", value: "react" },
-    { label: "Vue.js", value: "vue" },
-    { label: "Angular", value: "angular" },
-    { label: "Svelte", value: "svelte" },
-  ],
-});
+import { useState} from "react";
+import { subjectsList } from "@/utils/subjects";
 
 export default function Home() {
+  const defaultSubject = subjectsList.items[0].value;
+  const [selectedSubject, setSelectedSubject] = useState<string[]>([defaultSubject]);
+
   return (
     <VStack gap="32px" maxW="90vw" w="90vw" mx="auto">
       <Box
@@ -61,19 +45,20 @@ export default function Home() {
 
             {/* Subject Filter */}
             <Select.Root
-              collection={frameworks}
+              collection={subjectsList}
               size="md"
               w="200px"
               borderRadius="md"
               borderWidth="1px"
               borderColor="#D1D5DB"
               h="48px"
+              value={selectedSubject}
+              onValueChange={(e) => setSelectedSubject(e.value)}
             >
               <Select.HiddenSelect />
               <Select.Control color=" #000000" h="48px">
                 <Select.Trigger h="48px">
                   <Select.ValueText
-                    placeholder="Todas las materias"
                     color="#000000"
                     fontSize="md"
                   />
@@ -85,13 +70,13 @@ export default function Home() {
               <Portal>
                 <Select.Positioner>
                   <Select.Content>
-                    {frameworks.items.map((framework) => (
+                    {subjectsList.items.map((subject) => (
                       <Select.Item
-                        item={framework}
-                        key={framework.value}
+                        item={subject}
+                        key={subject.value}
                         color="#000000"
                       >
-                        {framework.label}
+                        {subject.label}
                         <Select.ItemIndicator />
                       </Select.Item>
                     ))}
@@ -101,7 +86,7 @@ export default function Home() {
             </Select.Root>
 
             {/* Clear Button */}
-            <Button bg="#d6d7dbff" h="48px">
+            <Button bg="#d6d7dbff" h="48px" onClick={() => setSelectedSubject([defaultSubject])}>
               <IoCloseSharp color="#000000" />
               <Text color="#000000" fontSize="md">
                 Limpiar
@@ -135,7 +120,7 @@ export default function Home() {
       </Box>
 
       {/* Content Area */}
-      <PresentationDashboard />
+      <PresentationDashboard subjectId={+selectedSubject[0]} />
     </VStack>
   );
 }
