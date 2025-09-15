@@ -1,0 +1,168 @@
+{
+    "materias": [
+        {
+            "id": 1,
+            "nombre": "Matemáticas Avanzadas",
+            "codigo": "MAT-2024",
+            "descripcion": "Curso de matemáticas para ingeniería",
+            "githubPath": "/matematicas-avanzadas",
+            "modulos": [
+                {
+                    "id": 1,
+                    "nombre": "Cálculo Diferencial",
+                    "descripcion": "Introducción al cálculo diferencial",
+                    "presentaciones": [
+                        {
+                            "id": 1,
+                            "nombre": "Límites y Continuidad",
+                            "descripcion": "Introducción al cálculo diferencial",
+                            "githubPath": "/limites-continuidad"
+                        },
+                        {
+                            "id": 2,
+                            "nombre": "Derivadas",
+                            "descripcion": "Teoría y aplicaciones de derivadas",
+                            "githubPath": "/derivadas"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nombre": "Cálculo Integral",
+                    "descripcion": "Fundamentos del cálculo integral",
+                    "presentaciones": [
+                        {
+                            "id": 1,
+                            "nombre": "Integrales Definidas",
+                            "descripcion": "Teoría y aplicaciones de integrales definidas",
+                            "githubPath": "/integrales-definidas"
+                        },
+                        {
+                            "id": 2,
+                            "nombre": "Ecuaciones Diferenciales",
+                            "descripcion": "Teoría y aplicaciones de ecuaciones diferenciales",
+                            "githubPath": "/ecuaciones-diferenciales"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "nombre": "Programación Web",
+            "codigo": "WEB-2024",
+            "descripcion": "Desarrollo de aplicaciones web modernas",
+            "githubPath": "/programacion-web",
+            "modulos": [
+                {
+                    "id": 1,
+                    "nombre": "HTML y CSS",
+                    "descripcion": "Fundamentos de desarrollo web",
+                    "presentaciones": [
+                        {
+                            "id": 1,
+                            "nombre": "Estructura HTML",
+                            "descripcion": "Elementos básicos de HTML",
+                            "githubPath": "/estructura-html"
+                        },
+                        {
+                            "id": 2,
+                            "nombre": "Estilos con CSS",
+                            "descripcion": "Diseño y estilos con CSS",
+                            "githubPath": "/estilos-css"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nombre": "JavaScript Avanzado",
+                    "descripcion": "Programación avanzada en JavaScript",
+                    "presentaciones": [
+                        {
+                            "id": 1,
+                            "nombre": "Funciones y Objetos",
+                            "descripcion": "Conceptos avanzados de JavaScript",
+                            "githubPath": "/funciones-objetos"
+                        },
+                        {
+                            "id": 2,
+                            "nombre": "Asincronía",
+                            "descripcion": "Manejo de operaciones asincrónicas",
+                            "githubPath": "/asincronia"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "nombre": "Análisis de Datos",
+            "codigo": "DATA-2024",
+            "descripcion": "Fundamentos de ciencia de datos",
+            "githubPath": "/analisis-datos",
+            "modulos": [
+                {
+                    "id": 1,
+                    "nombre": "Python para Datos",
+                    "descripcion": "Introducción a Python para análisis",
+                    "presentaciones": [
+                        {
+                            "id": 1,
+                            "nombre": "Pandas Básico",
+                            "descripcion": "Manipulación de datos con Pandas",
+                            "githubPath": "/pandas-basico"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nombre": "Visualización",
+                    "descripcion": "Técnicas de visualización de datos",
+                    "presentaciones": [
+                        {
+                            "id": 1,
+                            "nombre": "Gráficos con Matplotlib",
+                            "descripcion": "Creación de gráficos en Python",
+                            "githubPath": "/graficos-matplotlib"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "nombre": "Machine Learning",
+            "codigo": "ML-2024",
+            "descripcion": "Aprendizaje automático aplicado",
+            "githubPath": "/machine-learning",
+            "modulos": [
+                {
+                    "id": 1,
+                    "nombre": "Algoritmos Supervisados",
+                    "descripcion": "Aprendizaje supervisado",
+                    "presentaciones": [
+                        {
+                            "id": 1,
+                            "nombre": "Regresión Lineal",
+                            "descripcion": "Modelo de regresión lineal",
+                            "githubPath": "/regresion-lineal"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nombre": "Redes Neuronales",
+                    "descripcion": "Deep Learning básico",
+                    "presentaciones": [
+                        {
+                            "id": 1,
+                            "nombre": "Perceptrón Multicapa",
+                            "descripcion": "Fundamentos de redes neuronales",
+                            "githubPath": "/perceptron-multicapa"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
