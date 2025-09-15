@@ -3,6 +3,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import { ImGithub } from "react-icons/im";
 import { FaCode, FaChartBar } from "react-icons/fa";
 import { PresentationCardProps } from "./presentationCard.types";
+import { Tooltip } from "@/components/ui/tooltip";
 
 export function PresentationCard({
   nameSubject,
@@ -18,6 +19,7 @@ export function PresentationCard({
           borderRadius="xl"
           boxShadow="md"
           w="100%"
+          _hover={{ cursor: "pointer" }}
         >
           <HStack justifyContent="space-between" mb="12px">
             <VStack alignItems="flex-start" gap="2px">
@@ -31,9 +33,14 @@ export function PresentationCard({
                 {nameSubject}
               </Text>
             </VStack>
-            <Box alignSelf="flex-start" mt="8px">
-              <FaExternalLinkAlt size="20px" color="#2563EB" />
-            </Box>
+            <HStack gap="16px">
+              <Tooltip content="Ver en GitHub" openDelay={300} closeDelay={100}>
+                <ImGithub size="20px" color="#000000"/>
+              </Tooltip>
+              <Tooltip content="Ver presentación" openDelay={300} closeDelay={100}>
+                <FaExternalLinkAlt size="20px" color="#2563EB" />
+              </Tooltip>
+            </HStack>
           </HStack>
 
           <HStack gap="8px" mb="12px">
