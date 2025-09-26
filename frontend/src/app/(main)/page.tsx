@@ -1,20 +1,44 @@
 "use client";
 
-import { Box, HStack, VStack, Select, Portal, Input, InputGroup, Button, Text, Grid } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  VStack,
+  Select,
+  Portal,
+  Input,
+  InputGroup,
+  Button,
+  Text,
+  Grid,
+} from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { FaCode, FaChartBar } from "react-icons/fa6";
 import { TbClockHour4Filled } from "react-icons/tb";
-import { PresentationDashboard } from "./components/PresentationDashboard.tsx";
-import { useState} from "react";
+import { PresentationDashboard } from "../components/PresentationDashboard.tsx";
+import { useState } from "react";
 import { subjectsList } from "@/utils/subjects";
 
 export default function Home() {
   const defaultSubject = subjectsList.items[0].value;
-  const [selectedSubject, setSelectedSubject] = useState<string[]>([defaultSubject]);
+  const [selectedSubject, setSelectedSubject] = useState<string[]>([
+    defaultSubject,
+  ]);
 
   return (
-    <VStack gap="32px" maxW="90vw" w="90vw" mx="auto">
+    <VStack
+      gap="32px"
+      w={{
+        base: "90vw",
+        sm: "90vw",
+        md: "80vw",
+        lg: "80vw",
+        xl: "70vw",
+        "2xl": "70vw",
+      }}
+      mx="auto"
+    >
       <Box
         w="100%"
         bg="#ffffff"
@@ -58,10 +82,7 @@ export default function Home() {
               <Select.HiddenSelect />
               <Select.Control color=" #000000" h="48px">
                 <Select.Trigger h="48px">
-                  <Select.ValueText
-                    color="#000000"
-                    fontSize="md"
-                  />
+                  <Select.ValueText color="#000000" fontSize="md" />
                 </Select.Trigger>
                 <Select.IndicatorGroup>
                   <Select.Indicator />
@@ -86,7 +107,11 @@ export default function Home() {
             </Select.Root>
 
             {/* Clear Button */}
-            <Button bg="#d6d7dbff" h="48px" onClick={() => setSelectedSubject([defaultSubject])}>
+            <Button
+              bg="#d6d7dbff"
+              h="48px"
+              onClick={() => setSelectedSubject([defaultSubject])}
+            >
               <IoCloseSharp color="#000000" />
               <Text color="#000000" fontSize="md">
                 Limpiar

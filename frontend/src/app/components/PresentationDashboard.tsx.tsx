@@ -4,7 +4,7 @@ import { Grid, Box, HStack, VStack, Text } from "@chakra-ui/react";
 import { FaCode, FaFolderClosed, FaChalkboardUser } from "react-icons/fa6";
 import { SubjectFilter } from "./SubjectFilter";
 import { getAllSubjectsWithModules, getTotalModules, getTotalPresentations } from "@/utils/subjects";
-import { PresentationCard } from "./PresentationCard";
+import { PresentationCard } from "./SubjectCard";
 import { PresentationDashboardProps } from "./presentationDashboard.types"
 import { Subject } from "@/types/types";
 
@@ -15,6 +15,8 @@ export function PresentationDashboard({ subjectId }: PresentationDashboardProps)
   const subjects: Subject[] = subjectId === 0
     ? allModules
     : allModules.filter(subject => subject.id === subjectId);
+
+  const index = subjects.reduce((acc, subject) => acc + subject.modulos.length, 0);
 
   const cards = [
     {
@@ -69,8 +71,8 @@ export function PresentationDashboard({ subjectId }: PresentationDashboardProps)
 
         <Grid templateColumns="repeat(3, 1fr)" gap="24px" my="20px">
           {subjectId === 0 ? (
-            subjects.map((subject) => (
-              <PresentationCard key={subject.id} nameSubject={subject.nombre} modulos={subject.modulos} />
+            subjects.map((subject, subjectIndex) => (
+              <PresentationCard key={subject.id} nameSubject={subject.nombre} githubPath={subject.githubPath} modulos={subject.modulos} />
             ))
           ) : (
             <SubjectFilter subject={subjects[0]} />

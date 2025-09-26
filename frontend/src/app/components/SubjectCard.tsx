@@ -2,16 +2,22 @@ import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { ImGithub } from "react-icons/im";
 import { FaCode, FaChartBar } from "react-icons/fa";
-import { PresentationCardProps } from "./presentationCard.types";
+import { PresentationCardProps } from "./subjectCard.types";
 import { Tooltip } from "@/components/ui/tooltip";
+import Link from "next/link";
+import { MD5 } from "crypto-js";
 
 export function PresentationCard({
   nameSubject,
+  githubPath,
   modulos,
 }: PresentationCardProps) {
   return (
     <>
-      {modulos.map((mod, index) => (
+      {modulos.map((mod, index) => {
+
+        const presentationId = MD5(`${nameSubject}-${mod.nombre}-${mod.id}-${mod.presentacion.nombre}`).toString().slice(0, 11);
+        return (
         <Box
           key={`${nameSubject}-mod-${index}`}
           p="20px"
@@ -34,12 +40,30 @@ export function PresentationCard({
               </Text>
             </VStack>
             <HStack gap="16px">
-              <Tooltip content="Ver en GitHub" openDelay={300} closeDelay={100}>
-                <ImGithub size="20px" color="#000000"/>
-              </Tooltip>
-              <Tooltip content="Ver presentación" openDelay={300} closeDelay={100}>
-                <FaExternalLinkAlt size="20px" color="#2563EB" />
-              </Tooltip>
+              <Link href={`${githubPath}/${mod.presentacion.githubPath}`}>
+                <Tooltip
+                  content="Ver en GitHub"
+                  openDelay={300}
+                  closeDelay={100}
+                >
+                  <ImGithub
+                    size="20px"
+                    color="#000000"
+                  />
+                </Tooltip>
+              </Link>
+              <Link href={`/presentation/${presentationId}`}>
+                <Tooltip
+                  content="Ver presentación"
+                  openDelay={300}
+                  closeDelay={100}
+                >
+                  <FaExternalLinkAlt
+                    size="20px"
+                    color="#2563EB"
+                  />
+                </Tooltip>
+              </Link>
             </HStack>
           </HStack>
 
@@ -77,9 +101,10 @@ export function PresentationCard({
             <Text color="#4B5563" fontSize="12px">
               {mod.presentacion.githubPath}
             </Text>
-          </HStack>
-        </Box>
-      ))}
+            </HStack>
+          </Box>
+        );
+      })}
     </>
   );
 }
