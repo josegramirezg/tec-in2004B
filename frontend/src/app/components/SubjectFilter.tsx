@@ -1,7 +1,7 @@
 import { Box, Grid, GridItem, VStack, HStack, Text } from "@chakra-ui/react";
 import { ImGithub } from "react-icons/im";
 import { FaCode, FaChartBar } from "react-icons/fa";
-import { PresentationCard } from "./PresentationCard";
+import { PresentationCard } from "./SubjectCard";
 import { SubjectFilterProps } from "./subjectFilter.types";
 
 export function SubjectFilter({ subject }: SubjectFilterProps) {
@@ -62,13 +62,13 @@ export function SubjectFilter({ subject }: SubjectFilterProps) {
                   <Text color="#ffffff">{mod.descripcion}</Text>
                 </VStack>
                 <VStack alignItems="flex-end" fontSize="sm" gap="4px">
-                  <Text>{presentacionesDelModulo.length} Presentaciones</Text>
+                  <Text color="#ffffff">{presentacionesDelModulo.length} Presentaciones</Text>
                   <VStack alignItems="flex-start" gap="2px">
-                    <HStack>
+                    <HStack color="#ffffff">
                       <FaCode />
                       <Text>Python</Text>
                     </HStack>
-                    <HStack>
+                    <HStack color="#ffffff">
                       <FaChartBar />
                       <Text>Power BI</Text>
                     </HStack>
@@ -79,6 +79,7 @@ export function SubjectFilter({ subject }: SubjectFilterProps) {
               <Grid templateColumns="repeat(3, 1fr)" gap="24px" my="20px">
                 <PresentationCard
                   nameSubject={subject.nombre}
+                  githubPath={subject.githubPath}
                   modulos={presentacionesDelModulo}
                 />
               </Grid>
