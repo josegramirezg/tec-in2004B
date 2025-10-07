@@ -9,17 +9,16 @@ export function Navbar() {
         w={{
           base: "90vw",
           sm: "90vw",
-          md: "80vw",
-          lg: "80vw",
-          xl: "70vw",
-          "2xl": "70vw",
+          md: "90vw",
+          lg: "90vw",
+          xl: "80vw",
+          "2xl": "80vw",
         }}
         mx="auto"
       >
         <HStack
           justifyContent="space-between"
-          px="24px"
-          py="24px"
+          p="20px"
           color="white"
         >
           <VStack alignItems="flex-start" gap="0px">
@@ -32,8 +31,8 @@ export function Navbar() {
           </VStack>
           <HStack gap="32px">
             <HStack>
-              <ImGithub color="#000000" />
-              <Text fontSize="smaller" color="#4B5563">
+              <ImGithub color="#000000" size="20px" />
+              <Text fontSize="sm" color="#4B5563">
                 Repositorio de GitHub
               </Text>
             </HStack>

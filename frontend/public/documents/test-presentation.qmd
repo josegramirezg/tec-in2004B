@@ -1,0 +1,353 @@
+---
+format:
+  revealjs: 
+    theme: default
+    # transition: fade
+    # transition-speed: fast
+    # navigation-mode: linear
+    # controls: false
+    # progress: false
+    width: 1600
+    height: 900
+    center: true
+    # touch: false
+    # keyboard: true
+    # loop: false
+    # fragments: false
+    # autoAnimate: false
+    # mouseWheel: false
+    # css: styles.css
+
+--- 
+
+## {background-image="../images/Diapositiva1.PNG" background-size="80%" background-position="center center"}
+
+---
+
+## Time series analysis
+
+**Objective:** Model, validate and predict data to answer questions.
+
+## Seven-Step Process for Time Series Analysis
+
+**A. Understand context [UND]:** What is the problem or question?
+
+**B. Identify patterns [PAT]:** Plot the data / statistical validation of behavior
+
+**C. Select time series method [PAR]:** Identify parameters and obtain fits
+
+**D. Select best fit [FIT]:** Check performance measures
+
+**E. Validate residuals [RES]:** Statistical and graphical validation
+
+**F. Obtain forecast [FCS]:** Use the best/appropriate time series model
+
+**G. Answer the question [ANS]**
+
+---
+
+### Model Analysis
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate synthetic time series data
+np.random.seed(42)
+n = 30
+index = np.arange(1, n+1)
+trend = -4.5 * index + 261.94
+noise = np.random.normal(0, 3, n)
+y1 = trend + noise
+residuals = y1 - trend
+
+# Create 2x2 subplots with smaller figure size
+fig, axes = plt.subplots(2, 2, figsize=(9, 6.5))
+
+# 1. Smoothing Plot (top left)
+axes[0,0].plot(index, y1, 'bo-', markersize=2, linewidth=1)
+axes[0,0].plot(index, trend, 'r-', linewidth=1.5)
+axes[0,0].set_title('Smoothing Plot', fontsize=10, fontweight='bold')
+axes[0,0].grid(True, alpha=0.3)
+axes[0,0].set_xlabel('Time', fontsize=8)
+axes[0,0].set_ylabel('Value', fontsize=8)
+# Add arrow pointing to this plot
+axes[0,0].annotate('Main Analysis', xy=(15, 200), xytext=(25, 220),
+            arrowprops=dict(arrowstyle='->', color='red', lw=1.5),
+            fontsize=8, color='red', fontweight='bold')
+
+# 2. Residuals (top right)
+axes[0,1].plot(index, residuals, 'go-', markersize=2, linewidth=1)
+axes[0,1].axhline(y=0, color='r', linestyle='--', linewidth=1)
+axes[0,1].set_title('Residuals vs Order', fontsize=10, fontweight='bold')
+axes[0,1].grid(True, alpha=0.3)
+axes[0,1].set_xlabel('Order', fontsize=8)
+axes[0,1].set_ylabel('Residuals', fontsize=8)
+
+# 3. Histogram (bottom left)
+axes[1,0].hist(residuals, bins=8, alpha=0.7, color='skyblue', edgecolor='black')
+axes[1,0].set_title('Histogram of Residuals', fontsize=10, fontweight='bold')
+axes[1,0].grid(True, alpha=0.3)
+axes[1,0].set_xlabel('Residuals', fontsize=8)
+axes[1,0].set_ylabel('Frequency', fontsize=8)
+
+# 4. Scatter plot (bottom right)
+axes[1,1].scatter(trend, residuals, s=20, alpha=0.7, color='purple')
+axes[1,1].axhline(y=0, color='r', linestyle='--', linewidth=1)
+axes[1,1].set_title('Residuals vs Fitted', fontsize=10, fontweight='bold')
+axes[1,1].grid(True, alpha=0.3)
+axes[1,1].set_xlabel('Fitted Values', fontsize=8)
+axes[1,1].set_ylabel('Residuals', fontsize=8)
+
+plt.tight_layout(pad=1.0)
+plt.show()
+```
+
+---
+
+![](../images/Diapositiva4.PNG)
+
+---
+
+![](../images/Diapositiva5.PNG)
+
+---
+
+![](../images/Diapositiva7.PNG)
+
+---
+
+## Double Moving Average (DMA)
+
+- The main objetive is to attenuate the data.
+
+- The method first employs a regular MA, followeb by a srecursive (second)
+MA over the original MA (hence the name "double").
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate data similar to the chart you showed
+np.random.seed(42)
+n = 46  # 46 data points like in your chart
+x = np.arange(1, n+1)
+
+# Create fluctuating data that goes from ~35 to ~83
+# Start with a base trend and add noise
+base_trend = np.linspace(35, 83, n)
+noise = np.random.normal(0, 8, n)
+y = base_trend + noise
+
+# Ensure values stay within 0-100 range
+y = np.clip(y, 0, 100)
+
+# Create the chart
+plt.figure(figsize=(12, 6))
+plt.plot(x, y, 'b-', linewidth=2, label='Data Series')
+
+# Customize the chart to match your example
+plt.xlim(1, 46)
+plt.ylim(0, 100)
+plt.xlabel('Time Period', fontsize=12)
+plt.ylabel('Value', fontsize=12)
+plt.title('Time Series Analysis - Demo Chart', fontsize=14, fontweight='bold')
+
+# Add grid
+plt.grid(True, alpha=0.3)
+
+# Set x-axis ticks every 5 units
+plt.xticks(range(1, 47, 5))
+
+# Set y-axis ticks every 10 units
+plt.yticks(range(0, 101, 10))
+
+# Add some styling
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+![](../images/Diapositiva9.PNG)
+
+---
+
+![](../images/Diapositiva10.PNG)
+
+---
+
+![](../images/Diapositiva11.PNG)
+
+---
+
+![](../images/Diapositiva12.PNG)
+
+---
+
+![](../images/Diapositiva13.PNG)
+
+---
+
+![](../images/Diapositiva14.PNG)
+
+---
+
+![](../images/Diapositiva15.PNG)
+
+---
+
+## Double moving Average (DMA): Example
+
+**Complete the analysis and obtain the following results to answer...**
+
+:::: {.columns}
+::: {.column width="35%"}
+
+- Is the time series trended?
+    - **MSE:** 113.3277
+    - **MAPE:** 14.18%
+
+- Is it a good fit?
+
+
+- Residuals comply with assumptions?
+    - What are the assumptions?
+
+- Is the model reliable to obtain forecasts?
+    - DMA(5) has a good fit; residuals follow a normal distribution, with constant variance and independent (btw, DW = 2.122).
+    - However, it might be best to find a model with lower MAPE, and comparisons are still required.
+
+:::
+
+::: {.column width="65%"}
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Configurar estilo
+plt.style.use('default')
+sns.set_palette("husl")
+
+# Generar datos sintéticos
+np.random.seed(42)
+n = 38
+weeks = np.arange(1, n+1)
+
+# Modelo con tendencia
+y = 41.00 + 0.7678 * weeks + np.random.normal(0, 10.76, n)
+
+# Regresión lineal
+slope, intercept, r_value, p_value, std_err = stats.linregress(weeks, y)
+fitted = intercept + slope * weeks
+residuals = y - fitted
+
+# Crear figura - 2x2 grid con 3 gráficas
+fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+
+# 1. Normal Probability Plot (top left)
+stats.probplot(residuals, dist="norm", plot=axes[0,0])
+axes[0,0].set_title('Probability Plot of res DMA\nNormal', fontsize=12, fontweight='bold')
+axes[0,0].grid(True, alpha=0.3)
+axes[0,0].set_xlabel('res DMA', fontsize=10)
+axes[0,0].set_ylabel('Percent', fontsize=10)
+
+# Estadísticas (CORREGIDO)
+mean_res = np.mean(residuals)
+std_res = np.std(residuals, ddof=1)
+# stats.anderson devuelve (statistic, critical_values, significance_levels)
+ad_result = stats.anderson(residuals, dist='norm')
+ad_stat = ad_result.statistic
+ad_pvalue = 0.098  # Valor fijo como en tu ejemplo
+stats_text = f'Mean: {mean_res:.2f}\nStDev: {std_res:.2f}\nN: {len(residuals)}\nAD: 0.543\nP-Value: 0.098'
+axes[0,0].text(0.7, 0.3, stats_text, transform=axes[0,0].transAxes, 
+            bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.8),
+            fontsize=8, verticalalignment='top')
+
+# 2. Residuals vs Fits (top right)
+axes[0,1].scatter(fitted, residuals, alpha=0.7, color='blue', s=30)
+axes[0,1].axhline(y=0, color='red', linestyle='--', linewidth=2)
+axes[0,1].set_title('Residuals vs fits', fontsize=12, fontweight='bold')
+axes[0,1].set_xlabel('Fitted Values', fontsize=10)
+axes[0,1].set_ylabel('Residuals', fontsize=10)
+axes[0,1].grid(True, alpha=0.3)
+
+# 3. Residuals vs Order (bottom left, centrado)
+axes[1,0].plot(range(1, len(residuals)+1), residuals, 'o-', color='blue', alpha=0.7, markersize=3)
+axes[1,0].axhline(y=0, color='red', linestyle='--', linewidth=2)
+axes[1,0].set_title('Residuals vs order', fontsize=12, fontweight='bold')
+axes[1,0].set_xlabel('Order', fontsize=10)
+axes[1,0].set_ylabel('Residuals', fontsize=10)
+axes[1,0].grid(True, alpha=0.3)
+
+# Ocultar la cuarta posición (bottom right)
+axes[1,1].set_visible(False)
+
+
+# Ajustar layout para grid 2x2 con 3 gráficas
+plt.tight_layout(pad=2.0)
+plt.subplots_adjust(hspace=0.3, wspace=0.3)  # Espacio entre subplots
+plt.show()
+```
+:::
+:::
+
+---
+
+## Double Exponential Smoothing (DES)
+
+- The objetive is this method is to attenuate the data.
+
+- The method employs a single exponential smoothing model and  another ES on top of the first one, hence the name “double”
+    - Smoothing weights are also used, for the level and for the trend.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate data similar to the chart you showed
+np.random.seed(42)
+n = 46  # 46 data points like in your chart
+x = np.arange(1, n+1)
+
+# Create fluctuating data that goes from ~35 to ~84
+# Start with a base trend and add noise
+base_trend = np.linspace(35, 84, n)
+noise = np.random.normal(0, 8, n)
+y = base_trend + noise
+
+# Ensure values stay within 0-100 range
+y = np.clip(y, 0, 100)
+
+# Create the chart
+plt.figure(figsize=(12, 6))
+plt.plot(x, y, 'b-', linewidth=2, label='Data Series')
+
+# Customize the chart to match your example
+plt.xlim(1, 46)
+plt.ylim(0, 100)
+plt.xlabel('Time Period', fontsize=12)
+plt.ylabel('Value', fontsize=12)
+plt.title('Time Series Analysis - Demo Chart', fontsize=14, fontweight='bold')
+
+# Add grid
+plt.grid(True, alpha=0.3)
+
+# Set x-axis ticks every 5 units
+plt.xticks(range(1, 47, 5))
+
+# Set y-axis ticks every 10 units
+plt.yticks(range(0, 101, 10))
+
+# Add some styling
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
+
+plt.tight_layout()
+plt.show()
+```

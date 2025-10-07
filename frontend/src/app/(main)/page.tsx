@@ -32,10 +32,10 @@ export default function Home() {
       w={{
         base: "90vw",
         sm: "90vw",
-        md: "80vw",
-        lg: "80vw",
-        xl: "70vw",
-        "2xl": "70vw",
+        md: "90vw",
+        lg: "90vw",
+        xl: "80vw",
+        "2xl": "80vw",
       }}
       mx="auto"
     >

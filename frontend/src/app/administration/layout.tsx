@@ -1,14 +1,14 @@
 import { Box } from "@chakra-ui/react";
-import { Navbar } from "../../components/navbar/UserNavbar";
+import { AdminNavbar } from "@/components/navbar/AdminNavbar";
 
-export default function MainLayout({
+export default function AdministrationLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <Box bg="#F6F9FD" minH="100vh">
-      <Navbar />
+      <AdminNavbar />
       {children}
     </Box>
   );

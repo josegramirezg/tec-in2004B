@@ -1,0 +1,11 @@
+---
+title: "************************************"
+format:
+  revealjs:
+    width: 1600
+    height: 900
+    center: true
+    # margin: 0.05
+---
+
+## {background-image="../images/Diapositiva1.PNG" background-size="80%" background-position="center center"}

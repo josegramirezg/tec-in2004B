@@ -16,8 +16,6 @@ export function PresentationDashboard({ subjectId }: PresentationDashboardProps)
     ? allModules
     : allModules.filter(subject => subject.id === subjectId);
 
-  const index = subjects.reduce((acc, subject) => acc + subject.modulos.length, 0);
-
   const cards = [
     {
       title: "Total Módulos",
