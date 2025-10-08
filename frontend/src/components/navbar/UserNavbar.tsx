@@ -45,7 +45,7 @@ export function Navbar() {
           </HStack>
         </HStack>
       </Box>
-      <Box w="100vw" h="4px" bg="#2563eb" />
+      <Box w="100%" h="4px" bg="#2563eb" />
     </>
   );
 }

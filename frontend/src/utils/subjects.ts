@@ -1,5 +1,6 @@
 import { createListCollection } from "@chakra-ui/react";
 import subjectsData from "@/data/subjects-modules.json";
+import { Subject } from "@/types/types";
 
 export const subjectsList = createListCollection({
     items: [
@@ -11,40 +12,18 @@ export const subjectsList = createListCollection({
     ],
 });
 
-export function getTotalModules(subjectId: number) {
-    if (subjectId !== 0) {
-        const subject = subjectsData.materias.find(subject => subject.id === subjectId);
-        return subject ? subject.modulos.length : 0;
-    }
-    return subjectsData.materias.reduce((acc, subject) => acc + subject.modulos.length, 0);
+export function getTotalModules(subjects: Subject[]) {
+    const uniqueModules = new Set<string>();
+    subjects.forEach((subject) => {
+        subject.modulos.forEach((modulo) => {
+            uniqueModules.add(`${subject.id}-${modulo.id}`);
+        });
+    });
+    return uniqueModules.size;
 }
 
 export function getTotalPresentations(subjects: Subject[]) {
     return subjects.reduce((acc, subject) => acc + subject.modulos.length, 0);
-}
-
-interface Module {
-    id: number;
-    nombre: string;
-    descripcion: string;
-    presentacion: Presentation;
-}
-
-interface Presentation {
-    id: number;
-    nombre: string;
-    descripcion: string;
-    githubPath: string;
-}
-
-
-interface Subject {
-  id: number;
-  nombre: string;
-  codigo: string;
-  descripcion: string;
-  githubPath: string;
-  modulos: Module[];
 }
 
 export function getAllSubjectsWithModules() {

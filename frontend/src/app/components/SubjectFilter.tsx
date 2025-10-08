@@ -1,7 +1,7 @@
 import { Box, Grid, GridItem, VStack, HStack, Text } from "@chakra-ui/react";
 import { ImGithub } from "react-icons/im";
 import { FaCode, FaChartBar } from "react-icons/fa";
-import { PresentationCard } from "./SubjectCard";
+import { SubjectCard } from "./SubjectCard";
 import { SubjectFilterProps } from "./subjectFilter.types";
 
 export function SubjectFilter({ subject }: SubjectFilterProps) {
@@ -77,7 +77,7 @@ export function SubjectFilter({ subject }: SubjectFilterProps) {
               </HStack>
 
               <Grid templateColumns="repeat(3, 1fr)" gap="24px" my="20px">
-                <PresentationCard
+                <SubjectCard
                   nameSubject={subject.nombre}
                   githubPath={subject.githubPath}
                   modulos={presentacionesDelModulo}
