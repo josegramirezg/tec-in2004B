@@ -7,7 +7,7 @@ import { Tooltip } from "@/components/ui/tooltip";
 import Link from "next/link";
 import { MD5 } from "crypto-js";
 
-export function PresentationCard({
+export function SubjectCard({
   nameSubject,
   githubPath,
   modulos,

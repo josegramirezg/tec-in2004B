@@ -2,7 +2,6 @@
 
 import {
   Box,
-  HStack,
   VStack,
   Select,
   Portal,
@@ -14,17 +13,15 @@ import {
 } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
-import { FaCode, FaChartBar } from "react-icons/fa6";
-import { TbClockHour4Filled } from "react-icons/tb";
 import { PresentationDashboard } from "../components/PresentationDashboard.tsx";
 import { useState } from "react";
 import { subjectsList } from "@/utils/subjects";
+import { useSearch } from "@/hooks/useSearch";
 
 export default function Home() {
   const defaultSubject = subjectsList.items[0].value;
-  const [selectedSubject, setSelectedSubject] = useState<string[]>([
-    defaultSubject,
-  ]);
+  const [selectedSubject, setSelectedSubject] = useState<string[]>([defaultSubject]);
+  const { search, setSearch } = useSearch();
 
   return (
     <VStack
@@ -32,10 +29,10 @@ export default function Home() {
       w={{
         base: "90vw",
         sm: "90vw",
-        md: "80vw",
-        lg: "80vw",
-        xl: "70vw",
-        "2xl": "70vw",
+        md: "90vw",
+        lg: "90vw",
+        xl: "80vw",
+        "2xl": "80vw",
       }}
       mx="auto"
     >
@@ -60,10 +57,12 @@ export default function Home() {
           >
             <InputGroup startElement={<FaSearch size="16px" />} w="100%">
               <Input
-                placeholder="Buscar presentaciones, módulos o materias..."
+                placeholder="Buscar por nombre de presentación, módulo o materia"
                 color="#9CA3AF"
                 h="48px"
                 fontSize="md"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </InputGroup>
 
@@ -71,7 +70,7 @@ export default function Home() {
             <Select.Root
               collection={subjectsList}
               size="md"
-              w="200px"
+              w="300px"
               borderRadius="md"
               borderWidth="1px"
               borderColor="#D1D5DB"
@@ -118,29 +117,6 @@ export default function Home() {
               </Text>
             </Button>
           </Grid>
-
-          {/* Category Buttons */}
-          <HStack
-            alignItems="flex-start"
-            justifyContent="flex-start"
-            w="100%"
-            gap="0px"
-          >
-            <Button variant="ghost">
-              <FaCode color="#000000" />
-              <Text color="#000000"> Python </Text>
-            </Button>
-
-            <Button variant="ghost">
-              <FaChartBar size="12px" color="#000000" />
-              <Text color="#000000"> Power BI </Text>
-            </Button>
-
-            <Button variant="ghost">
-              <TbClockHour4Filled size="1px" color="#000000" />
-              <Text color="#000000"> Recientes </Text>
-            </Button>
-          </HStack>
         </VStack>
       </Box>
 
