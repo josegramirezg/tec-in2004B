@@ -1,4 +1,4 @@
-import { Box, HStack, IconButton, Text, VStack } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 import { FiSearch } from "react-icons/fi";
 import { FiFilter } from "react-icons/fi";
 import { FiBookOpen } from "react-icons/fi";

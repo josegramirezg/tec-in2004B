@@ -1,8 +1,8 @@
 "use client";
 
 import { Grid, Box, HStack, VStack, Text } from "@chakra-ui/react";
-import { FaCode, FaFolderClosed, FaChalkboardUser } from "react-icons/fa6";
-import { SubjectFilter } from "./SubjectFilter";
+import { FaFolderClosed, FaChalkboardUser } from "react-icons/fa6";
+import { SubjectFilter } from "./FilteredSubject";
 import {
   getAllSubjectsWithModules,
   getTotalModules,
@@ -66,13 +66,6 @@ export const PresentationDashboard = memo(function PresentationDashboard({
         bgGradient: "linear-gradient(to right, #a855f7, #9333ea)",
         iconColor: "#D8B4FE",
       },
-      {
-        title: "Con Código",
-        value: 8,
-        Icon: FaCode,
-        bgGradient: "linear-gradient(to right, #f97316, #ea580c)",
-        iconColor: "#FED7AA",
-      },
     ],
     [subjectId, subjects]
   );
@@ -81,13 +74,14 @@ export const PresentationDashboard = memo(function PresentationDashboard({
     <Box w="100%">  
       {subjects.length > 0 ? (
         <>
-          <Grid templateColumns="repeat(3, 1fr)" gap="24px">
+          <HStack gap="24px">
             {cards.map(({ title, value, Icon, bgGradient, iconColor }) => (
               <Box
                 key={title}
                 bgGradient={bgGradient}
                 p="20px"
                 borderRadius="xl"
+                w="100%"
               >
                 <HStack gap="40px" justifyContent="space-between">
                   <VStack alignItems="flex-start" gap="0px">
@@ -102,7 +96,7 @@ export const PresentationDashboard = memo(function PresentationDashboard({
                 </HStack>
               </Box>
             ))}
-          </Grid>
+          </HStack>
 
           <Box my="24px">
             {subjectId === 0 && (
@@ -122,7 +116,6 @@ export const PresentationDashboard = memo(function PresentationDashboard({
                   <SubjectCard
                     key={subject.id}
                     nameSubject={subject.nombre}
-                    githubPath={subject.githubPath}
                     modulos={subject.modulos}
                   />
                 ))
