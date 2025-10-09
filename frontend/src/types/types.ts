@@ -9,7 +9,7 @@ export interface Presentation {
   id: number;
   nombre: string;
   descripcion: string;
-  githubPath: string;
+  tipo: string;
 }
 
 export interface Subject {
@@ -17,6 +17,5 @@ export interface Subject {
   nombre: string;
   codigo: string;
   descripcion: string;
-  githubPath: string;
   modulos: Module[];
 }

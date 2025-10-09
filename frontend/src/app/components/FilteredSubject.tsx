@@ -1,8 +1,7 @@
 import { Box, Grid, GridItem, VStack, HStack, Text } from "@chakra-ui/react";
-import { ImGithub } from "react-icons/im";
-import { FaCode, FaChartBar } from "react-icons/fa";
+import { SiQuarto } from "react-icons/si";
 import { SubjectCard } from "./SubjectCard";
-import { SubjectFilterProps } from "./subjectFilter.types";
+import { SubjectFilterProps } from "./filteredSubject";
 
 export function SubjectFilter({ subject }: SubjectFilterProps) {
   return (
@@ -24,18 +23,12 @@ export function SubjectFilter({ subject }: SubjectFilterProps) {
           <Text color="#e0e7ff" fontSize="md">
             {subject.descripcion}
           </Text>
-          <HStack color="#e0e7ff" fontSize="sm">
-            <ImGithub size="16px" />
-            <Text> {subject.githubPath} </Text>
-          </HStack>
         </VStack>
       </GridItem>
 
       <GridItem colSpan={3}>
         {Array.from(
-          new Map(
-            subject.modulos.map(({ presentacion, ...mod }) => [mod.id, mod])
-          ).values()
+          new Map(subject.modulos.map(({ presentacion, ...mod }) => [mod.id, mod])).values()
         ).map((mod, index) => {
           const presentacionesDelModulo = subject.modulos.filter(
             (m) => m.id === mod.id
@@ -64,13 +57,9 @@ export function SubjectFilter({ subject }: SubjectFilterProps) {
                 <VStack alignItems="flex-end" fontSize="sm" gap="4px">
                   <Text color="#ffffff">{presentacionesDelModulo.length} Presentaciones</Text>
                   <VStack alignItems="flex-start" gap="2px">
-                    <HStack color="#ffffff">
-                      <FaCode />
-                      <Text>Python</Text>
-                    </HStack>
-                    <HStack color="#ffffff">
-                      <FaChartBar />
-                      <Text>Power BI</Text>
+                    <HStack color="#ffffff" gap="2px">
+                      <SiQuarto />                      
+                      <Text> Quarto </Text>
                     </HStack>
                   </VStack>
                 </VStack>
@@ -79,7 +68,6 @@ export function SubjectFilter({ subject }: SubjectFilterProps) {
               <Grid templateColumns="repeat(3, 1fr)" gap="24px" my="20px">
                 <SubjectCard
                   nameSubject={subject.nombre}
-                  githubPath={subject.githubPath}
                   modulos={presentacionesDelModulo}
                 />
               </Grid>

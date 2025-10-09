@@ -16,7 +16,7 @@ export function getTotalModules(subjects: Subject[]) {
     const uniqueModules = new Set<string>();
     subjects.forEach((subject) => {
         subject.modulos.forEach((modulo) => {
-            uniqueModules.add(`${subject.id}-${modulo.id}`);
+            uniqueModules.add(`${subject.nombre}-${modulo.nombre}`);
         });
     });
     return uniqueModules.size;
