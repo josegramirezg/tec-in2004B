@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
-import { PresentationDashboard } from "../components/PresentationDashboard.tsx";
+import { PresentationDashboard } from "../(components)/PresentationDashboard.tsx";
 import { useState } from "react";
 import { subjectsList } from "@/utils/subjects";
 import { useSearch } from "@/hooks/useSearch";
@@ -41,26 +41,47 @@ export default function Home() {
         bg="#ffffff"
         boxShadow="lg"
         borderRadius="xl"
-        px="8px"
-        py="12px"
-        mt="20px"
       >
         {/* Filters */}
-        <VStack p="12px">
+        <VStack p={{
+          base: "8px",
+          sm: "12px",
+          md: "12px",
+        }}>
           {/* Search Input */}
           <Grid
-            templateColumns="1fr auto auto"
+            templateColumns={{
+              base: "1fr",
+              sm: "1fr",
+              md: "1fr auto auto",
+            }}
             w="100%"
             alignItems="center"
-            gap="16px"
-            my="8px"
+            gap={{
+              base: "12px",
+              sm: "16px",
+              md: "16px",
+            }}
+            my={{
+              base: "4px",
+              sm: "8px",
+              md: "8px",
+            }}
           >
             <InputGroup startElement={<FaSearch size="16px" />} w="100%">
               <Input
                 placeholder="Buscar por nombre de presentación, módulo o materia"
                 color="#9CA3AF"
-                h="48px"
-                fontSize="md"
+                h={{
+                  base: "44px",
+                  sm: "48px",
+                  md: "48px",
+                }}
+                fontSize={{
+                  base: "sm",
+                  sm: "md",
+                  md: "md",
+                }}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -70,17 +91,33 @@ export default function Home() {
             <Select.Root
               collection={subjectsList}
               size="md"
-              w="300px"
+              w={{
+                base: "100%",
+                sm: "100%",
+                md: "300px",
+              }}
               borderRadius="md"
               borderWidth="1px"
               borderColor="#D1D5DB"
-              h="48px"
+              h={{
+                base: "44px",
+                sm: "48px",
+                md: "48px",
+              }}
               value={selectedSubject}
               onValueChange={(e) => setSelectedSubject(e.value)}
             >
               <Select.HiddenSelect />
-              <Select.Control color=" #000000" h="48px">
-                <Select.Trigger h="48px">
+              <Select.Control color=" #000000" h={{
+                base: "44px",
+                sm: "48px",
+                md: "48px",
+              }}>
+                <Select.Trigger h={{
+                  base: "44px",
+                  sm: "48px",
+                  md: "48px",
+                }}>
                   <Select.ValueText color="#000000" fontSize="md" />
                 </Select.Trigger>
                 <Select.IndicatorGroup>
@@ -108,7 +145,16 @@ export default function Home() {
             {/* Clear Button */}
             <Button
               bg="#d6d7dbff"
-              h="48px"
+              h={{
+                base: "44px",
+                sm: "48px",
+                md: "48px",
+              }}
+              w={{
+                base: "100%",
+                sm: "100%",
+                md: "auto",
+              }}
               onClick={() => setSelectedSubject([defaultSubject])}
             >
               <IoCloseSharp color="#000000" />

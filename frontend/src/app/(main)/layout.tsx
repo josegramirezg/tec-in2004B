@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { Navbar } from "../../components/navbar/UserNavbar";
+import { Navbar } from "../../components/navbar/Navbar";
 
 export default function MainLayout({
   children,
