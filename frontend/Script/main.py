@@ -48,7 +48,6 @@ async def add_presentaciones(currentSize):
             'tipo': input('- Tipo de presentación (Quarto, PDF, PowerPoint, etc.): ')
         }
         TEMP_STORAGE["presentationName"] = presentacion['nombre']
-        print(TEMP_STORAGE)
 
         # Generar el hash de la presentación
         genereatedHash = generateHash(**TEMP_STORAGE)

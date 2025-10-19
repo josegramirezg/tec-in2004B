@@ -15,6 +15,7 @@
     "@types/reveal.js": "^5.2.0",
     "@uiw/react-markdown-preview": "^5.1.5",
     "crypto-js": "^4.2.0",
+    "glob": "^11.0.3",
     "next": "15.5.2",
     "next-themes": "^0.4.6",
     "pdfjs-dist": "^5.4.149",
@@ -25,6 +26,7 @@
     "react-markdown": "^10.1.0",
     "react-pdf": "^10.1.0",
     "react-resizable": "^3.0.5",
+    "react-spinners": "^0.17.0",
     "react-syntax-highlighter": "^15.6.6",
     "rehype-highlight": "^7.0.2",
     "remark-gfm": "^4.0.1",
@@ -40,6 +42,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

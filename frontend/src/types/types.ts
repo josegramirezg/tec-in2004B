@@ -10,6 +10,7 @@ export interface Presentation {
   nombre: string;
   descripcion: string;
   tipo: string;
+  hash: string;
 }
 
 export interface Subject {

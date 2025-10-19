@@ -2,21 +2,21 @@
     "materias": [
         {
             "id": 1,
-            "nombre": "r",
-            "codigo": "r",
-            "descripcion": "r",
+            "nombre": "Programacion Avanzada",
+            "codigo": "ITC-204",
+            "descripcion": "Estructura de datos y algoritmos fundamentales",
             "modulos": [
                 {
                     "id": 1,
-                    "nombre": "r",
-                    "descripcion": "r",
+                    "nombre": "Listas",
+                    "descripcion": "Implementación de listas",
                     "presentaciones": [
                         {
                             "id": 1,
-                            "nombre": "r",
-                            "descripcion": "r",
-                            "tipo": "r",
-                            "hash": "8886b3e7ed1"
+                            "nombre": "Listas enlazadas",
+                            "descripcion": "Implementación de listas enlazadas en C++",
+                            "tipo": "Quarto",
+                            "hash": "d3f1dc0dcad"
                         }
                     ]
                 }
