@@ -1,0 +1,108 @@
+/* Texto normal un poquito más grande */
+.reveal .slides section ul li {
+  font-size: 0.85em !important;
+  line-height: 1.3 !important;
+}
+
+.reveal .slides section ul ul li {
+  font-size: 0.8em !important;
+}
+
+.reveal .slides section p {
+  font-size: 0.9em !important;
+}
+
+.reveal .slides section strong {
+  font-size: 0.9em !important;
+}
+
+/* Para columnas específicamente */
+.reveal .columns ul li {
+  font-size: 0.85em !important;
+}
+
+.reveal .columns ul ul li {
+  font-size: 0.8em !important;
+}
+
+.reveal .columns p {
+  font-size: 0.9em !important;
+}
+
+/* Definición de estilos y rutas de las presentaciones */
+.bg-slide-1 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva1.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-4 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva4.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-5 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva5.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-7 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva7.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-9 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva9.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-10 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva10.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-11 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva11.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-12 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva12.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-13 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva13.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-14 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva14.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.bg-slide-15 {
+  background-image: url("../../../../images/limites-continuidad/Diapositiva15.PNG");
+  background-size: 80%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
