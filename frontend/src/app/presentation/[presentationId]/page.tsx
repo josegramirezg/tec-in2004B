@@ -1,47 +1,29 @@
-"use client";
-
-import { Box } from "@chakra-ui/react";
-import { use, useEffect, useState } from "react";
-import { PresentationPageProps } from "@/types/presentationPage";
 import { findFile } from "@/utils/findFile";
-import { BeatLoader } from "react-spinners";
+import { PresentationPageContent } from "./PresentationPageContent";
+import predefinedHashesRoutes from "@/data/predefined-routes.json";
 
-export default function PresentationPage({ params }: PresentationPageProps) {
-  const { presentationId } = use(params);
-  const [file_path, setFilePath] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+export async function generateStaticParams() {
+  const allHashesRoutes: string[] = [];
+  predefinedHashesRoutes.predefinedHashesRoutes.forEach((hash) => {
+    allHashesRoutes.push(hash);
+  });
 
-  useEffect(() => {
-    async function fetchFilePath() {
-      try {
-        const filePath = await findFile(presentationId);
-        setFilePath(filePath || null);
-      } catch (error) {
-        console.error("Error al buscar el archivo:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
+  return allHashesRoutes.map((hash) => ({
+    presentationId: hash,
+  }));
+}
 
-    fetchFilePath();
-  }, [presentationId])
-
-  if (isLoading) {
-    return (
-      <Box h="100vh" display="flex" justifyContent="center" alignItems="center">
-        <BeatLoader color="#22c55e" size={10} />
-      </Box>
-    )
-  }
+export default async function PresentationPage({
+  params,
+}: {
+  params: { presentationId: string };
+}) {
+  const { presentationId } = await params;
+  const filePath = await findFile(presentationId);
   return (
-    <Box h="100vh">
-      <iframe
-        src={`${file_path}`}
-        width="100%"
-        height="100%"
-        title={`Presentación ${presentationId}`}
-        onError={() => console.error("Error cargando presentación")}
-      />
-    </Box>
+    <PresentationPageContent
+      filePath={filePath}
+      presentationId={presentationId}
+    />
   );
 }

@@ -10,6 +10,12 @@ from transformFormat import transformFormat
 with open('../src/data/subjects-modules.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
+with open('../src/data/predefined-routes.json', 'r', encoding='utf-8') as file:
+    predefined_routes = json.load(file)
+
+# Variable global para las rutas predefinidas
+PREDEFINED_HASHES_ROUTES = predefined_routes['predefinedHashesRoutes']
+
 # Variable global para la materia
 MATERIAS = data['materias']
 TEMP_STORAGE = {}
@@ -51,6 +57,7 @@ async def add_presentaciones(currentSize):
 
         # Generar el hash de la presentación
         genereatedHash = generateHash(**TEMP_STORAGE)
+        PREDEFINED_HASHES_ROUTES.append(genereatedHash)
         presentacion['hash'] = genereatedHash
         
         fileName = input('\n- Inserta el nombre del archivo (.qmd): ')
@@ -192,6 +199,9 @@ async def main():
     if input('\n- ¿Desea guardar los cambios? (s/n): ').lower() == "s":
         with open('../src/data/subjects-modules.json', 'w', encoding='utf-8') as file:
             object_to_save = {"materias": MATERIAS}
+            json.dump(object_to_save, file, indent=4, ensure_ascii=False)
+        with open('../src/data/predefined-routes.json', 'w', encoding='utf-8') as file:
+            object_to_save = {"predefinedHashesRoutes": PREDEFINED_HASHES_ROUTES}
             json.dump(object_to_save, file, indent=4, ensure_ascii=False)
         print('\n ✅ Cambios guardados')
     else:

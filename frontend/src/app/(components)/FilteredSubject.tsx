@@ -29,7 +29,8 @@ export function FilteredSubject({ subject }: FilteredSubjectProps) {
 
       <GridItem colSpan={3}>
         {Array.from(
-          new Map(subject.modulos.map(({ presentacion, ...mod }) => [mod.id, mod])).values()
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          new Map(subject.modulos.map(({ presentacion: _, ...mod }) => [mod.id, mod])).values()
         ).map((mod, index) => {
           const presentacionesDelModulo = subject.modulos.filter(
             (m) => m.id === mod.id
