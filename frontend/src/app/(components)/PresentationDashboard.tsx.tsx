@@ -48,7 +48,7 @@ export const PresentationDashboard = memo(function PresentationDashboard({
     }
 
     return filteredSubjects;
-  }, [allModules, search]);
+  }, [subjectId, allModules, search]);
 
   const cards = useMemo(
     () => [
@@ -67,7 +67,7 @@ export const PresentationDashboard = memo(function PresentationDashboard({
         iconColor: "#D8B4FE",
       },
     ],
-    [subjectId, subjects]
+    [subjects]
   );
 
   return (

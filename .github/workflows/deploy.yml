@@ -2,16 +2,18 @@ name: Deploy Next.js to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ fix-desploy ]
+    workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-  permissions:
-    contents: write
-    pages: write
-    id-token: write
-    
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v4

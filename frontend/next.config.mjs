@@ -1,5 +1,5 @@
 export default {
-    output: 'standalone',
+    output: 'export',
     trailingSlash: true,
     images: {
         unoptimized: true
