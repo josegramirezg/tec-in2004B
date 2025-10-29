@@ -1,6 +1,7 @@
 import { findFile } from "@/utils/findFile";
 import { PresentationPageContent } from "./PresentationPageContent";
 import predefinedHashesRoutes from "@/data/predefined-routes.json";
+import { PresentationPageProps } from "@/types/presentationPage";
 
 export async function generateStaticParams() {
   const allHashesRoutes: string[] = [];
@@ -15,9 +16,7 @@ export async function generateStaticParams() {
 
 export default async function PresentationPage({
   params,
-}: {
-  params: { presentationId: string };
-}) {
+}: PresentationPageProps) {
   const { presentationId } = await params;
   const filePath = await findFile(presentationId);
   return (

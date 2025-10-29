@@ -1,5 +1,3 @@
-"use server";
-
 import { glob } from "glob";
 import path from "path";
 
