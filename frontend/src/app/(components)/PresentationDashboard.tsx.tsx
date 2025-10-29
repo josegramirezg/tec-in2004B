@@ -48,7 +48,7 @@ export const PresentationDashboard = memo(function PresentationDashboard({
     }
 
     return filteredSubjects;
-  }, [subjectId, allModules, search]);
+  }, [allModules, search]);
 
   const cards = useMemo(
     () => [
