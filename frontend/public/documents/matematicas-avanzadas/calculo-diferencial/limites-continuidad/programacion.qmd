@@ -2,20 +2,9 @@
 format:
   revealjs: 
     theme: default
-    # transition: fade
-    # transition-speed: fast
-    # navigation-mode: linear
-    # controls: false
-    # progress: false
     width: 1600
     height: 900
     center: true
-    # touch: false
-    # keyboard: true
-    # loop: false
-    # fragments: false
-    # autoAnimate: false
-    # mouseWheel: false
     css: styles.css
 
 --- 
