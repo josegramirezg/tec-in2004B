@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-upload:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout del repositorio
@@ -20,6 +20,9 @@ jobs:
           cache-dependency-path: ./frontend/package-lock.json
           
       - name: Instalar y Construir
+        env:
+          NEXT_PUBLIC_BASE_PATH: /tec-in2004B
+          NEXT_PUBLIC_WEBSITE_NAME: tec-in2004B
         run: npm ci && npm run build
         working-directory: ./frontend
 
@@ -29,7 +32,7 @@ jobs:
           path: ./frontend/out 
           
   deploy:
-    needs: build-and-upload 
+    needs: build
     
     environment:
       name: github-pages

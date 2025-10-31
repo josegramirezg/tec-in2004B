@@ -51,7 +51,8 @@ async def add_presentaciones(currentSize):
             'id': currentSize + 1,
             'nombre': input('- Nombre de la presentación: '),
             'descripcion': input('- Descripción de la presentación: '),
-            'tipo': input('- Tipo de presentación (Quarto, PDF, PowerPoint, etc.): ')
+            'tipo': input('- Tipo de presentación (Quarto, PDF, PowerPoint, etc.): '),
+            'link_to_colab': input('- Inserta el link de la presentación en Colab: ')
         }
         TEMP_STORAGE["presentationName"] = presentacion['nombre']
 

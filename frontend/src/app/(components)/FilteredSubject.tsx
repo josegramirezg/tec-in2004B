@@ -43,7 +43,7 @@ export function FilteredSubject({ subject }: FilteredSubjectProps) {
                 p="32px"
                 justifyContent="space-between"
               >
-                <VStack gap="8px">
+                <VStack gap="8px" alignItems="flex-start">
                   <HStack gap="16px">
                     <Box bg="#35D06E" px="12px" py="4px" borderRadius="2xl">
                       <Text color="#ffffff" fontSize="14px">
@@ -57,9 +57,9 @@ export function FilteredSubject({ subject }: FilteredSubjectProps) {
                   <Text color="#ffffff">{mod.descripcion}</Text>
                 </VStack>
                 <VStack alignItems="flex-end" fontSize="sm" gap="4px">
-                  <Text color="#ffffff">{presentacionesDelModulo.length} Presentaciones</Text>
+                  <Text color="#ffffff">{presentacionesDelModulo.length} Present. </Text>
                   <VStack alignItems="flex-start" gap="2px">
-                    <HStack color="#ffffff" gap="2px">
+                    <HStack color="#ffffff" gap="4px">
                       <SiQuarto />                      
                       <Text> Quarto </Text>
                     </HStack>

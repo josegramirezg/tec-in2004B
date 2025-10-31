@@ -10,6 +10,7 @@ export interface Presentation {
   nombre: string;
   descripcion: string;
   tipo: string;
+  link_to_colab: string;
   hash: string;
 }
 
